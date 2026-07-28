@@ -2,18 +2,27 @@
 ==========================================================
 ONICORE BOTS
 
-Bot Name  : Jhaplupirobot
+Bot Name  : JhapluPirobot
 Developer : @BlurpleOg
 Marketing : #onicore_bots
 
-Buttons Manager
-Production Ready
-Fully Commented
+buttons.py
+
+All Inline Keyboard Buttons
 
 ==========================================================
 """
 
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+# ==========================================================
+# Imports
+# ==========================================================
+
+from pyrogram.types import (
+
+    InlineKeyboardButton,
+    InlineKeyboardMarkup
+
+)
 
 import config
 
@@ -22,83 +31,102 @@ import config
 # Start Buttons
 # ==========================================================
 
-def start_buttons(is_admin: bool = False):
+def start_buttons(admin: bool = False):
+
     """
-    Returns start menu buttons.
+    Start Menu Buttons
 
-    Parameters:
-        is_admin : bool
+    User:
+    About
+    Channels
+    Close
 
-    Returns:
-        InlineKeyboardMarkup
+    Admin:
+    About
+    Channels
+    Settings
+    Close
     """
 
-    buttons = [
+    keyboard = [
 
         [
+
             InlineKeyboardButton(
+
                 "📖 𝗔𝗕𝗢𝗨𝗧",
+
                 callback_data="about"
+
             ),
 
             InlineKeyboardButton(
+
                 "📢 𝗖𝗛𝗔𝗡𝗡𝗘𝗟𝗦",
+
                 callback_data="channels"
+
             )
 
         ]
 
     ]
 
-    # Show Settings only to Admin / Owner
-    if is_admin:
+    if admin:
 
-        buttons.append(
+        keyboard.append(
+
             [
 
                 InlineKeyboardButton(
+
                     "⚙️ 𝗦𝗘𝗧𝗧𝗜𝗡𝗚𝗦",
+
                     callback_data="settings"
+
                 )
 
             ]
+
         )
 
-    buttons.append(
+    keyboard.append(
+
         [
 
             InlineKeyboardButton(
+
                 "❌ 𝗖𝗟𝗢𝗦𝗘",
+
                 callback_data="close"
+
             )
 
         ]
+
     )
 
-    return InlineKeyboardMarkup(buttons)
-
-
-# ==========================================================
+    return InlineKeyboardMarkup(keyboard)
+    # ==========================================================
 # About Buttons
 # ==========================================================
 
-def about_buttons(is_admin: bool = False):
+def about_buttons(admin: bool = False):
+
     """
     About Panel Buttons
     """
 
-    rows = [
+    keyboard = [
 
         [
 
             InlineKeyboardButton(
-                "◀️ 𝗕𝗔𝗖𝗞",
-                callback_data="back_start"
-            ),
 
-            InlineKeyboardButton(
                 "📢 𝗖𝗛𝗔𝗡𝗡𝗘𝗟𝗦",
+
                 callback_data="channels"
+
             )
 
         ],
@@ -106,38 +134,48 @@ def about_buttons(is_admin: bool = False):
         [
 
             InlineKeyboardButton(
+
+                "◀️ 𝗕𝗔𝗖𝗞",
+
+                callback_data="back_start"
+
+            ),
+
+            InlineKeyboardButton(
+
                 "❌ 𝗖𝗟𝗢𝗦𝗘",
+
                 callback_data="close"
+
             )
 
         ]
 
     ]
 
-    return InlineKeyboardMarkup(rows)
+    return InlineKeyboardMarkup(keyboard)
 
 
 # ==========================================================
 # Channels Buttons
 # ==========================================================
 
-def channels_buttons(is_admin=False):
+def channels_buttons(admin: bool = False):
+
     """
-    Channel Panel Buttons
+    Channels Panel Buttons
     """
 
-    rows = [
+    keyboard = [
 
         [
 
             InlineKeyboardButton(
-                "◀️ 𝗕𝗔𝗖𝗞",
-                callback_data="back_start"
-            ),
 
-            InlineKeyboardButton(
                 "📖 𝗔𝗕𝗢𝗨𝗧",
+
                 callback_data="about"
+
             )
 
         ],
@@ -145,60 +183,173 @@ def channels_buttons(is_admin=False):
         [
 
             InlineKeyboardButton(
+
+                "◀️ 𝗕𝗔𝗖𝗞",
+
+                callback_data="back_start"
+
+            ),
+
+            InlineKeyboardButton(
+
                 "❌ 𝗖𝗟𝗢𝗦𝗘",
+
                 callback_data="close"
+
             )
 
         ]
 
     ]
 
-    return InlineKeyboardMarkup(rows)
-
-
-# ==========================================================
-# Force Subscribe Buttons
+    return InlineKeyboardMarkup(keyboard)
+    # ==========================================================
+# Settings Buttons
 # ==========================================================
 
-def fsub_buttons(start_parameter: str = ""):
+def settings_buttons():
+
     """
-    Creates Force Subscribe Buttons
+    Admin Settings Panel
     """
 
-    rows = []
-
-    for channel in config.FORCE_SUB_CHANNELS:
-
-        rows.append(
-
-            [
-
-                InlineKeyboardButton(
-
-                    text=f"📢 {channel['name']}",
-
-                    url=channel["link"]
-
-                )
-
-            ]
-
-        )
-
-    rows.append(
+    keyboard = [
 
         [
 
             InlineKeyboardButton(
 
-                "🔄 𝗧𝗥𝗬 𝗔𝗚𝗔𝗜𝗡",
+                "🔒 𝗙𝗦𝗨𝗕 𝗣𝗔𝗡𝗘𝗟",
 
-                callback_data=f"try_again:{start_parameter}"
+                callback_data="fsub_panel"
+
+            )
+
+        ],
+
+        [
+
+            InlineKeyboardButton(
+
+                "📊 𝗦𝗧𝗔𝗧𝗨𝗦",
+
+                callback_data="status_panel"
+
+            ),
+
+            InlineKeyboardButton(
+
+                "📢 𝗕𝗥𝗢𝗔𝗗𝗖𝗔𝗦𝗧",
+
+                callback_data="broadcast_panel"
+
+            )
+
+        ],
+
+        [
+
+            InlineKeyboardButton(
+
+                "👑 𝗔𝗗𝗠𝗜𝗡𝗦",
+
+                callback_data="admin_panel"
+
+            ),
+
+            InlineKeyboardButton(
+
+                "🚫 𝗕𝗔𝗡",
+
+                callback_data="ban_panel"
+
+            )
+
+        ],
+
+        [
+
+            InlineKeyboardButton(
+
+                "◀️ 𝗕𝗔𝗖𝗞",
+
+                callback_data="back_start"
+
+            ),
+
+            InlineKeyboardButton(
+
+                "❌ 𝗖𝗟𝗢𝗦𝗘",
+
+                callback_data="close"
 
             )
 
         ]
 
+    ]
+
+    return InlineKeyboardMarkup(keyboard)
+
+
+# ==========================================================
+# Common Close Button
+# ==========================================================
+
+def close_button():
+
+    """
+    Single Close Button
+    """
+
+    return InlineKeyboardMarkup(
+
+        [
+
+            [
+
+                InlineKeyboardButton(
+
+                    "❌ 𝗖𝗟𝗢𝗦𝗘",
+
+                    callback_data="close"
+
+                )
+
+            ]
+
+        ]
+
     )
 
-    return InlineKeyboardMarkup(rows)
+
+# ==========================================================
+# Common Back Button
+# ==========================================================
+
+def back_button():
+
+    """
+    Single Back Button
+    """
+
+    return InlineKeyboardMarkup(
+
+        [
+
+            [
+
+                InlineKeyboardButton(
+
+                    "◀️ 𝗕𝗔𝗖𝗞",
+
+                    callback_data="back_start"
+
+                )
+
+            ]
+
+        ]
+
+    )
+    
