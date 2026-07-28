@@ -1,0 +1,9 @@
+pyrofork==2.3.68
+tgcrypto
+motor
+pymongo
+python-dotenv
+aiofiles
+aiohttp
+dnspython
+uvloop; platform_system != "Windows"
