@@ -1,0 +1,24 @@
+# ==========================================
+# ONICORE BOTS
+# Jhaplupirobot
+# ==========================================
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+.env
+
+*.session
+*.session-journal
+
+logs/
+*.log
+
+.vscode/
+.idea/
+
+.DS_Store
+
+Thumbs.db
