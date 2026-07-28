@@ -2,52 +2,61 @@
 ==========================================================
 ONICORE BOTS
 
-Bot Name  : Jhaplupirobot
+Bot Name  : JhapluPirobot
 Developer : @BlurpleOg
 Marketing : #onicore_bots
 
-Loading Animation
-Production Ready
-Fully Commented
+animation.py
+
+Start Animation System
 
 ==========================================================
 """
 
 # ==========================================================
-# Required Imports
+# Imports
 # ==========================================================
 
 import asyncio
 import random
 
+from pyrogram.types import Message
+
+
 # ==========================================================
-# Random Emojis
+# Animation Emojis
 # ==========================================================
 
 EMOJIS = [
 
     "🚀",
     "⚡",
-    "💎",
+    "💫",
+    "🌟",
     "✨",
-    "🌈",
-    "⭐",
-    "🎯",
     "🔥",
-    "💫"
+    "🎯",
+    "💎",
+    "🌈",
+    "⭐"
 
 ]
 
+
 # ==========================================================
-# Progress Values
+# Random Progress
 # ==========================================================
 
 PROGRESS = [
 
-    7,
-    18,
+    3,
+    8,
+    14,
+    21,
+    27,
     33,
     41,
+    48,
     57,
     66,
     78,
@@ -56,91 +65,30 @@ PROGRESS = [
 
 ]
 
+
 # ==========================================================
-# Progress Bar Generator
+# Progress Bar
 # ==========================================================
 
-def progress_bar(percent: int):
+def build_progress(percent: int) -> str:
 
     """
-    Returns unicode progress bar.
-
-    Example:
-
-    ■■■□□□□□□□
+    Creates
+    █████░░░░░
     """
 
     total = 10
 
-    filled = round(percent / 10)
+    filled = int(percent / 10)
 
     empty = total - filled
 
-    return "■" * filled + "□" * empty
+    return (
 
+        "█" * filled
 
-# ==========================================================
-# Loading Animation
-# ==========================================================
+        +
 
-async def play_animation(message):
+        "░" * empty
 
-    """
-    Plays loading animation.
-
-    After completion,
-
-    Returns edited message.
-    """
-
-    emoji = random.choice(EMOJIS)
-
-    for value in PROGRESS:
-
-        await message.edit(
-
-            f"""
-<b>{emoji} 𝗝𝗵𝗮𝗽𝗹𝘂𝗣𝗶𝗿𝗼𝗯𝗼𝘁</b>
-
-<blockquote>
-
-<b>ʟᴏᴀᴅɪɴɢ...</b>
-
-<code>{progress_bar(value)}</code>
-
-<b>{value}%</b>
-
-</blockquote>
-"""
-
-        )
-
-        await asyncio.sleep(
-
-            random.uniform(
-                0.35,
-                0.60
-            )
-
-        )
-
-    return message
-
-
-# ==========================================================
-# Delete Animation
-# ==========================================================
-
-async def finish_animation(message):
-
-    """
-    Deletes animation message.
-    """
-
-    try:
-
-        await message.delete()
-
-    except:
-
-        pass
+    )
